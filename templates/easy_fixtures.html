@@ -1,0 +1,75 @@
+<template name="easy_fixtures">
+  <div class="easy-fixtures wrapper">
+    <div class="{{cssClass 'header'}}">
+      <h1>Easy Fixtures UI <small class="{{cssClass 'sub-header'}}">Easily generate data</small></h1>
+    </div>
+
+    <div class="{{cssClass 'infoBox'}}">
+      Create fake data for all collections listed below with a click on
+      "Generate fixtures" or select a single collection for more configuration
+      possibilities.
+    </div>
+    <button class="generate all button {{cssClass 'button-save'}}">
+      Generate fixtures
+    </button>
+    <button class="remove all button  {{cssClass 'button-delete'}}">
+      Remove all fixtures
+      </button>
+
+    <h2>Collections</h2>
+    <div class="{{cssClass 'listWrapper'}}">
+      {{#each collection}}
+        <div class="{{cssClass 'listItem'}}">
+          {{#if hasAccess}}
+          <div class="collection content">
+            <a class="header" href=""><strong>{{this}}</strong></a>
+            <span class="{{cssClass 'label'}}">{{docsCount}} docs</span>
+            <span class="{{cssClass 'fixturesLabel'}}">{{fixturesCount}} fixtures</span>
+          </div>
+
+          <div class="configurations {{showOrHide}}">
+            <h3>Document structure</h3>
+            {{#if docStructure}}
+              <ul>
+                {{#each docStructure}}
+                  <li><strong>{{key}}</strong> {{typeString}}</li>
+                {{/each}}
+              </ul>
+
+              <div class="{{cssClass 'inputWrapper'}} doc-count">
+                <strong>Number of documents to generate</strong>
+                <input type="text" class="{{cssClass 'input'}}" value="{{countDocs}}" />
+              </div>
+
+              <div class="buttons-wrapper">
+                <button class="generate button {{cssClass 'button'}}">
+                  Generate fixtures
+                </button>
+                <button class="remove button {{cssClass 'button-delete'}}">
+                  Remove fixtures
+                </button>
+              </div>
+            {{else}}
+              <div class="no-structure">No structure could be inferred!</div>
+            {{/if}}
+          </div>
+          {{else}}
+          <div class="collection content">
+            <a class="header" href=""><strong>{{this}}</strong></a>
+            <span class="{{cssClass 'errorLabel'}}">Access missing</span>
+          </div>
+
+          <div class="configurations {{showOrHide}}">
+            <h3>No server side access found!</h3>
+            Fix this problem by either:
+            <ul>
+              <li>Making the collection globally available</li>
+              <li>Adding the collection with <code>EasyFixtures.addCollection(collection)</code></li>
+            </ul>
+          </div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
