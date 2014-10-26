@@ -22,7 +22,7 @@ EasyFixtures.defaultData = {
     return str
   'Number' : (def) -> Math.floor((Math.random() * 11)) + 1
   'Date' : (def) -> new Date((new Date()).getTime() * Math.random())
-  'Boolean' : (def) -> !!Math.floor(Math.random() + 0.5),
+  'Boolean' : (def) -> !!Math.floor(Math.random() + 0.5)
   # Not sure about object fixtures
   'Object' : (def) -> { 'foo' : 'bar' }
 }

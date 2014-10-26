@@ -2,6 +2,7 @@ Package.describe({
   name: 'matteodem:easy-fixtures',
   summary: "Create fixture collection data in seconds through a simple UI",
   version: "0.2.0",
+  debugOnly: true,
   git: "https://github.com/matteodem/meteor-easy-fixtures.git"
 });
 
@@ -26,10 +27,4 @@ Package.onUse(function(api) {
   api.addFiles('templates/easy_fixtures.coffee', 'client');
 
   api.export('EasyFixtures');
-});
-
-Package.onTest(function(api) {
-  api.use('tinytest');
-  api.use('easy-fixtures');
-  api.addFiles('easy-fixtures-tests.js');
 });
