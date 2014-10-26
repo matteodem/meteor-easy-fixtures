@@ -52,33 +52,21 @@ EasyFixtures.getDocByStructure = (structure) ->
 # Custom log function
 log = (msg) -> console.log "EASY-FIXTURES: #{msg}"
 
-# Check if collection name is presentable to the user
-notSpecialCollection = (name) ->
-  name.indexOf('system') != 0 &&
-  name.indexOf('houston_') != 0 &&
-  name.indexOf('efixtures_') != 0 &&
-  name.indexOf('users') != 0
-
 # Setup a collection for use with the fixtures
 setupCollection = (collection) ->
-  name = collection.collectionName
+  name = collection.name
 
-  if notSpecialCollection name
-    EasyFixtures._collectionKeys.push(name)
-    for key, value of root
-      if name == value?._name
-        EasyFixtures._collections[name] = value
+  EasyFixtures._collectionKeys.push(name)
+  EasyFixtures._collections[name] = collection.instance
 
-    if not EasyFixtures._collections[name]?
-      log "Server side access for collection '#{name}' missing!"
+  if not EasyFixtures._collections[name]?
+    log "Server side access for collection '#{name}' missing!"
 
 # Code on startup
 Meteor.startup () ->
-  mongoDriver = MongoInternals?.defaultRemoteCollectionDriver()
-
-  mongoDriver.mongo.db.collections (e, collections) ->
-    throw new Meteor.Error("Had error while reading collections") if e?
-    setupCollection collection for collection in collections
+  collections = EasyFixtures._withoutSpecialCollections(Mongo.Collection.getAll())
+  setupCollection collection for collection in _.values(collections)
+  Meteor.publish 'esFixturesConfiguration', () -> _.map(Mongo.Collection.getAll(), (collection) -> collection.instance.find())
 
 # Meteor Methods
 Meteor.methods({
@@ -96,6 +84,3 @@ Meteor.methods({
     throw new Meteor.Error("No access to collection!") if not collection?
     collection.remove({ _id : { $regex : /efixture_[\w]*/ }})
 })
-
-Meteor.publish 'esFixturesConfiguration', () ->
-  return FixturesCollection.find()

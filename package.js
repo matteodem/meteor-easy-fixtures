@@ -14,7 +14,10 @@ Package.onUse(function(api) {
   api.use(['mongo', 'templating', 'underscore', 'less', 'jquery']);
 
   // Community packages
-  api.use(['iron:router@0.9.0', 'anti:fake@0.4.1', 'chrismbeckett:toastr@1.0.2']);
+  api.use(
+    ['iron:router@0.9.0', 'anti:fake@0.4.1',
+      'chrismbeckett:toastr@1.0.2', 'dburles:mongo-collection-instances']
+  );
 
   // API Files
   api.addFiles('lib/common.coffee', ['client', 'server']);
