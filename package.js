@@ -16,7 +16,7 @@ Package.onUse(function(api) {
   // Community packages
   api.use(
     ['iron:router@0.9.0', 'anti:fake@0.4.1',
-      'chrismbeckett:toastr@1.0.2', 'dburles:mongo-collection-instances']
+      'chrismbeckett:toastr@1.0.2', 'dburles:mongo-collection-instances@0.2.1']
   );
 
   // API Files
