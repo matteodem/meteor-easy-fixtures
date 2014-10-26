@@ -1,7 +1,7 @@
 Package.describe({
   name: 'matteodem:easy-fixtures',
   summary: "Create fixture collection data in seconds through a simple UI",
-  version: "0.2.0",
+  version: "0.2.1",
   debugOnly: true,
   git: "https://github.com/matteodem/meteor-easy-fixtures.git"
 });
